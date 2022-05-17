@@ -21,7 +21,7 @@ const AddressScreen = () => {
   const [phone, setPhone] = useState('');
 
   const [address, setAddress] = useState('');
-  const [addressError, setAddressError] = useState('Invalid address');
+  const [addressError, setAddressError] = useState('');
 
   const [city, setCity] = useState('');
 
