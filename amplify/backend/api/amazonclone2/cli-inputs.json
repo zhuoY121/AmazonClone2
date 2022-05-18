@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amazonclone2",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/zhuoyang/UMich/Courses/Career/Summer-2022/StartInvest-intern/Week1/AmazonClone2/amplify/backend/api/amazonclone2/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-05-17T22:16:51.542Z",
+      "keyDescription": "api key amazon2"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}

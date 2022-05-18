@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar, Text, useColorScheme} from 'react-native';
+import {SafeAreaView, StatusBar, Text, useColorScheme, View} from 'react-native';
 import 'react-native-gesture-handler';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -19,7 +19,16 @@ import HomeScreen from './src/screens/HomeScreen';
 import ProductScreen from './src/screens/ProductScreen';
 import ShoppingCartScreen from './src/screens/ShoppingCartScreen';
 
+import {Amplify} from 'aws-amplify';
+import {withAuthenticator} from 'aws-amplify-react-native';
+import awsconfig from './src/aws-exports';
+Amplify.configure(awsconfig);
+
+import { I18n } from 'aws-amplify';
+
+
 const App = () => {
+  I18n.setLanguage('en'); // add this, unless the login page will be half Chinese and half English.
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -28,11 +37,11 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <View style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Router />
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default App;
+export default withAuthenticator(App);
