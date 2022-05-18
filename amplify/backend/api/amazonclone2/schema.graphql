@@ -8,27 +8,42 @@ type Product @model @auth(rules: [{ allow: public }]) {
   
   avgRating: Float
   ratings: Int
-  
+
   price: Float!
   oldPrice: Float
-
-  # note: check this
-  cartProducts: [CartProduct] @hasMany
 }
 
-type CartProduct @model {
+type CartProduct @model @auth(rules: [{ allow: public }]) {
   id: ID!
   userSub: String!
   quantity: Int!
   option: String
 
   productID: ID!
-  product: Product @belongsTo # note: check this
+  product: Product @hasOne(fields: ["productID"])
 }
 
-# type Order @model {
+# type OrderProduct @model @auth(rules: [{ allow: public }]) {
+#   id: ID!
+#   quantity: Int!
+#   options: String
+
+#   productID: ID!
+#   product: Product @hasOne(fields: ["productID"])
+
+#   orderID: ID!
+#   order: Order @hasOne(fields: ["orderID"])
+# }
+
+# type Order @model @auth(rules: [{ allow: public }]) {
 #   id: ID!
 #   userSub: String!
+
+#   fullName: String!
+#   phoneNumber: String
+#   country: String
+#   city: String
+#   address: String
 # }
 
 # # This "input" configures a global authorization rule to enable public access to

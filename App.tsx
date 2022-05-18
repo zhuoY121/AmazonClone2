@@ -14,18 +14,12 @@ import 'react-native-gesture-handler';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Router from './src/router';
-import AddressScreen from './src/screens/AddressScreen';
-import HomeScreen from './src/screens/HomeScreen';
-import ProductScreen from './src/screens/ProductScreen';
-import ShoppingCartScreen from './src/screens/ShoppingCartScreen';
-
 import {Amplify} from 'aws-amplify';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import awsconfig from './src/aws-exports';
 Amplify.configure(awsconfig);
 
-import { I18n } from 'aws-amplify';
-
+import {I18n} from 'aws-amplify';
 
 const App = () => {
   I18n.setLanguage('en'); // add this, unless the login page will be half Chinese and half English.

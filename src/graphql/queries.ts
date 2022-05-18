@@ -15,23 +15,6 @@ export const getProduct = /* GraphQL */ `
       ratings
       price
       oldPrice
-      cartProducts {
-        items {
-          id
-          userSub
-          quantity
-          option
-          productID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          productCartProductsId
-        }
-        nextToken
-        startedAt
-      }
       createdAt
       updatedAt
       _version
@@ -58,10 +41,6 @@ export const listProducts = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -97,10 +76,6 @@ export const syncProducts = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -131,10 +106,6 @@ export const getCartProduct = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -146,7 +117,6 @@ export const getCartProduct = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      productCartProductsId
     }
   }
 `;
@@ -185,7 +155,6 @@ export const listCartProducts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        productCartProductsId
       }
       nextToken
       startedAt
@@ -233,7 +202,6 @@ export const syncCartProducts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        productCartProductsId
       }
       nextToken
       startedAt

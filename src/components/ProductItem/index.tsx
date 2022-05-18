@@ -59,11 +59,11 @@ const ProductItem = (props: ProductItemProps) => {
 
         <Text style={styles.price}>
           from {'\u0024'}
-          {item.price}
+          {item.price.toFixed(2)}
           {item.oldPrice && (
             <Text style={styles.oldPrice}>
               {'\u0024'}
-              {item.oldPrice}
+              {item.oldPrice.toFixed(2)}
             </Text>
           )}
         </Text>

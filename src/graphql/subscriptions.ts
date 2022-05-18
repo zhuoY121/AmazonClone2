@@ -15,23 +15,6 @@ export const onCreateProduct = /* GraphQL */ `
       ratings
       price
       oldPrice
-      cartProducts {
-        items {
-          id
-          userSub
-          quantity
-          option
-          productID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          productCartProductsId
-        }
-        nextToken
-        startedAt
-      }
       createdAt
       updatedAt
       _version
@@ -53,23 +36,6 @@ export const onUpdateProduct = /* GraphQL */ `
       ratings
       price
       oldPrice
-      cartProducts {
-        items {
-          id
-          userSub
-          quantity
-          option
-          productID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          productCartProductsId
-        }
-        nextToken
-        startedAt
-      }
       createdAt
       updatedAt
       _version
@@ -91,23 +57,6 @@ export const onDeleteProduct = /* GraphQL */ `
       ratings
       price
       oldPrice
-      cartProducts {
-        items {
-          id
-          userSub
-          quantity
-          option
-          productID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          productCartProductsId
-        }
-        nextToken
-        startedAt
-      }
       createdAt
       updatedAt
       _version
@@ -135,10 +84,6 @@ export const onCreateCartProduct = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -150,7 +95,6 @@ export const onCreateCartProduct = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      productCartProductsId
     }
   }
 `;
@@ -173,10 +117,6 @@ export const onUpdateCartProduct = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -188,7 +128,6 @@ export const onUpdateCartProduct = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      productCartProductsId
     }
   }
 `;
@@ -211,10 +150,6 @@ export const onDeleteCartProduct = /* GraphQL */ `
         ratings
         price
         oldPrice
-        cartProducts {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -226,7 +161,6 @@ export const onDeleteCartProduct = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      productCartProductsId
     }
   }
 `;
