@@ -14,6 +14,7 @@ import Button from '../../components/Button';
 
 import {Auth, DataStore} from 'aws-amplify';
 import {CartProduct} from '../../models';
+import {Product} from '../../models';
 
 const ShoppingCartScreen = () => {
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
@@ -30,71 +31,116 @@ const ShoppingCartScreen = () => {
     // console.log(cartProducts);
   };
 
-  useEffect(() => {
-    fetchCartProducts();
-  }, []);
+  // // By default, the function passed to useEffect will run after the render is committed to the screen
+  // useEffect(() => {
+  //   console.log('a1');
+  //   fetchCartProducts();
+  // }, []);
 
+  // It seems like we don't need this function.
   // Be careful, the logic of this useEffect() is pretty complicated.
+  // useEffect(() => {
+  //   console.log('a2');
+  //   // If every cartProduct has a product, then return. (This means data loading is completed)
+  //   if (cartProducts.filter(cp => !cp.product).length === 0) {
+  //     return;
+  //   }
+
+  //   const fetchProducts = async () => {
+  //     console.log('fetchProducts');
+  //     // query all products that are used in the cart
+  //     const products = await Promise.all(
+  //       cartProducts.map(cartProduct =>
+  //         DataStore.query(Product, cartProduct.productID),
+  //       ),
+  //     );
+
+  //     // For every cartProduct, assign the corresponding product to it. (use cartProduct.productID)
+  //     setCartProducts(currentCartProducts =>
+  //       currentCartProducts.map(cartProduct => ({
+  //         ...cartProduct,
+  //         product: products.find(p => p.id === cartProduct.productID),
+  //       })),
+  //     );
+  //   };
+  //   fetchProducts();
+
+  // //   fetchCartProducts();
+  //   // console.log('aa');
+  // }, [cartProducts]);
+
+  // // Update shopping cart page after checkout.
+  // useEffect(() => {
+  //   console.log('a3');
+  //   const subscription = DataStore.observe(CartProduct).subscribe(msg =>
+  //     fetchCartProducts(),
+  //   );
+  //   return () => {
+  //     subscription.unsubscribe();
+  //   };
+  //   // return subscription.unsubscribe; // this will cause an error: "cannot read properties of undefined (reading '_state')"
+  // }, []);
+
+  // ------1
+  // useEffect(() => {
+  //   const subscriptions = cartProducts.map(cp =>
+  //     DataStore.observe(CartProduct, cp.id).subscribe(msg => {
+  //       fetchCartProducts();
+  //       console.log('bb');
+  //       // console.log(msg.model, msg.opType, msg.element);
+  //     }),
+  //   );
+  //   return () => {
+  //     subscriptions.forEach(sub => sub.unsubscribe());
+  //   };
+  // }, [cartProducts]);
+  // ------1
+
+  // ------2
   useEffect(() => {
-    // If every cartProduct has a product, then return. (This means data loading is completed)
-    // if (cartProducts.filter(cp => !cp.product).length === 0) {
-    //   return;
-    // }
-
-    // const fetchProducts = async () => {
-    //   // query all products that are used in the cart
-    //   const products = await Promise.all(
-    //     cartProducts.map(cartProduct =>
-    //       DataStore.query(Product, cartProduct.productID),
-    //     ),
-    //   );
-
-    //   // For every cartProduct, assign the corresponding product to it. (use cartProduct.productID)
-    //   setCartProducts(currentCartProducts =>
-    //     currentCartProducts.map(cartProduct => ({
-    //       ...cartProduct,
-    //       product: products.find(p => p.id === cartProduct.productID),
-    //     })),
-    //   );
-    // };
-    // fetchProducts();
+    console.log('a22');
 
     fetchCartProducts();
-  }, [cartProducts]);
 
-  // Update shopping cart page after checkout.
-  useEffect(() => {
     const subscription = DataStore.observe(CartProduct).subscribe(msg =>
       fetchCartProducts(),
     );
-    return subscription.unsubscribe; // note: here cannot use 'unsubscribe()', but don't know why.
-  }, []);
-
-  // Subscribe the changes for the cartProducts
-  useEffect(() => {
-    const subscriptions = cartProducts.map(cp =>
-      DataStore.observe(CartProduct, cp.id).subscribe(msg => {
-        if (msg.opType === 'UPDATE') {
-          setCartProducts(curCartProducts =>
-            curCartProducts.map(cp => {
-              if (cp.id !== msg.element.id) {
-                // console.log('differnt id');
-                return cp;
-              }
-              return {
-                ...cp,
-                ...msg.element,
-              };
-            }),
-          );
-        }
-      }),
-    );
-
     return () => {
-      subscriptions.forEach(sub => sub.unsubscribe());
+      subscription.unsubscribe();
     };
-  }, [cartProducts]);
+    // return subscription.unsubscribe; // this will cause an error: "cannot read properties of undefined (reading '_state')"
+  }, []);
+  // ------2
+
+  // // Pass a second argument to useEffect that is the array of values that the effect depends on.
+  // // Subscribe the changes for the cartProducts
+  // // Functionality: If the cartProducts in the database are changed, then the changes will update on the device.
+  // // (Synchronization for multi devices)
+  // useEffect(() => {
+  //   console.log('a4');
+  //   const subscriptions = cartProducts.map(cp =>
+  //     DataStore.observe(CartProduct, cp.id).subscribe(msg => {
+  //       if (msg.opType === 'UPDATE') {
+  //         setCartProducts(curCartProducts =>
+  //           curCartProducts.map(cp => {
+  //             if (cp.id !== msg.element.id) {
+  //               // console.log('differnt id');
+  //               return cp;
+  //             }
+  //             return {
+  //               ...cp,
+  //               ...msg.element,
+  //             };
+  //           }),
+  //         );
+  //       }
+  //     }),
+  //   );
+
+  //   return () => {
+  //     subscriptions.forEach(sub => sub.unsubscribe());
+  //   };
+  // }, [cartProducts]);
 
   const onCheckout = () => {
     navigation.navigate('Address');

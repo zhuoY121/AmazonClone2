@@ -69,6 +69,14 @@ const AddressScreen = () => {
     // delete all cart items
     await Promise.all(cartItems.map(cartItem => DataStore.delete(cartItem)));
 
+    // clean all the data in the Address Screen
+    setCountry('');
+    setFullname('');
+    setPhone('');
+    setAddress('');
+    setAddressError('');
+    setCity('');
+
     // redirect to home
     navigation.navigate('home');
   };

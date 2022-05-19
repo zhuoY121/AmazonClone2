@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
+import {Text, ScrollView, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 // import product from '../../data/product';
