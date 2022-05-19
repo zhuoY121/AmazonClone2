@@ -12,6 +12,10 @@ import styles from './styles';
 import {Picker} from '@react-native-picker/picker';
 import countryList from 'country-list';
 import Button from '../../components/Button';
+import {Auth, DataStore} from 'aws-amplify';
+import {Order, OrderProduct} from '../../models';
+import {CartProduct} from '../../models';
+import {useNavigation} from '@react-navigation/native';
 
 const countries = countryList.getData();
 
@@ -24,6 +28,50 @@ const AddressScreen = () => {
   const [addressError, setAddressError] = useState('');
 
   const [city, setCity] = useState('');
+
+  const navigation = useNavigation();
+
+  const saveOrder = async () => {
+    // get user details
+    const userData = await Auth.currentAuthenticatedUser();
+
+    // create a new order
+    const newOrder = await DataStore.save(
+      new Order({
+        userSub: userData.attributes.sub,
+        fullName: fullname,
+        phoneNumber: phone,
+        country: country,
+        city: city,
+        address: address,
+      }),
+    );
+
+    // fetch all cart items for the current login user
+    const cartItems = await DataStore.query(CartProduct, cp =>
+      cp.userSub('eq', userData.attributes.sub),
+    );
+
+    // attach all cart items to the order
+    await Promise.all(
+      cartItems.map(cartItem =>
+        DataStore.save(
+          new OrderProduct({
+            quantity: cartItem.quantity,
+            options: cartItem.option,
+            productID: cartItem.productID,
+            orderID: newOrder.id,
+          }),
+        ),
+      ),
+    );
+
+    // delete all cart items
+    await Promise.all(cartItems.map(cartItem => DataStore.delete(cartItem)));
+
+    // redirect to home
+    navigation.navigate('home');
+  };
 
   const onCheckout = () => {
     if (addressError) {
@@ -42,6 +90,8 @@ const AddressScreen = () => {
     }
 
     console.warn('Success checkout.');
+
+    saveOrder();
   };
 
   const validateAddress = () => {

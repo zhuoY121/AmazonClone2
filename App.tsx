@@ -20,9 +20,9 @@ import awsconfig from './src/aws-exports';
 Amplify.configure(awsconfig);
 
 import {I18n} from 'aws-amplify';
+I18n.setLanguage('en'); // add this, unless the login page will be half Chinese and half English.
 
 const App = () => {
-  I18n.setLanguage('en'); // add this, unless the login page will be half Chinese and half English.
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
