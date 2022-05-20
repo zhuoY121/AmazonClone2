@@ -8,6 +8,7 @@ import {Product} from '../../models';
 
 import textHyperLink1 from '../../data/textHyperLink1';
 import TextHyperLink from '../../components/TextHyperLink';
+import textHyperLinks from '../../data/textHyperLinks';
 
 const HomeScreen = ({searchValue}: {searchValue: string}) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -34,7 +35,14 @@ const HomeScreen = ({searchValue}: {searchValue: string}) => {
         data={products}
         renderItem={({item}) => <ProductItem item={item} />}
         showsVerticalScrollIndicator={false}
-        ListFooterComponent={<TextHyperLink item={textHyperLink1} />}
+        // ListFooterComponent={<TextHyperLink item={textHyperLink1} />}
+        ListFooterComponent={
+          <FlatList
+            data={textHyperLinks}
+            renderItem={({item}) => <TextHyperLink item={item} />}
+            showsVerticalScrollIndicator={false}
+          />
+        }
       />
     </View>
   );
