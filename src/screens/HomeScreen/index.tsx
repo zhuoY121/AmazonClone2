@@ -6,6 +6,7 @@ import ProductItem from '../../components/ProductItem';
 import {DataStore} from 'aws-amplify';
 import {Product} from '../../models';
 
+import textHyperLink1 from '../../data/textHyperLink1';
 import TextHyperLink from '../../components/TextHyperLink';
 
 const HomeScreen = ({searchValue}: {searchValue: string}) => {
@@ -22,6 +23,7 @@ const HomeScreen = ({searchValue}: {searchValue: string}) => {
         data={products}
         renderItem={({item}) => <ProductItem item={item} />}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={<TextHyperLink item={textHyperLink1} />}
       />
     </View>
   );

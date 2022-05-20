@@ -7,6 +7,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import HomeStack from './HomeStack';
 import ShoppingCartStack from './ShoppingCartStack';
 import MenuScreen from '../screens/MenuScreen';
+import TextHyperLinkScreen from '../screens/TextHyperLinkScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +31,7 @@ const BottomTabNav = () => {
         }}
       />
       <Tab.Screen
-        component={HomeScreen}
+        component={TextHyperLinkScreen}
         name="profile"
         options={{
           tabBarIcon: ({color}) => (
