@@ -6,6 +6,8 @@ import ProductItem from '../../components/ProductItem';
 import {DataStore} from 'aws-amplify';
 import {Product} from '../../models';
 
+import TextHyperLink from '../../components/TextHyperLink';
+
 const HomeScreen = ({searchValue}: {searchValue: string}) => {
   const [products, setProducts] = useState<Product[]>([]);
 
