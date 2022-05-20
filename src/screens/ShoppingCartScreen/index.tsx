@@ -98,7 +98,7 @@ const ShoppingCartScreen = () => {
 
   // ------2
   useEffect(() => {
-    console.log('a22');
+    // console.log('a22');
 
     fetchCartProducts();
 
