@@ -51,7 +51,7 @@ const TextHyperLink = ({item}: TextHyperLinkProps) => {
     }
     return (
       // <Text style={{backgroundColor: 'grey'}}>
-      <Text>
+      <Text key={`${word}-${i}`}>
         {word}
         {i !== arr.length - 1 ? ' ' : ''}
       </Text>
