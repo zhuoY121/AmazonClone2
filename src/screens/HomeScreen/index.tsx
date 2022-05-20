@@ -13,8 +13,19 @@ const HomeScreen = ({searchValue}: {searchValue: string}) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    DataStore.query(Product).then(results => setProducts(results));
-  }, []);
+    DataStore.query(Product).then(results =>
+      setProducts(
+        results.filter(product => {
+          if (searchValue === '') {
+            return product;
+          }
+          if (product.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return product;
+          }
+        }),
+      ),
+    );
+  }, [searchValue]);
 
   return (
     <View style={styles.page}>
